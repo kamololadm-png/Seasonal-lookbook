@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./gate.css">
+    <link rel="icon" href="./assets/favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lollipop — The Quiet Hour</title>
+  </head>
+  <body>
+    <div class="page">
+
+    <div class="topbar">
+      <div class="lftrght">
+        <span class="t-mask"><button type="button" id="nav-left" class="t-topbar-text nav-btn">LFT</button></span><br>
+        <span class="topbar-gap"></span>
+        <span class="t-mask"><button type="button" id="nav-right" class="t-topbar-text nav-btn">RGHT</button></span>
+      </div>
+  
+      <div class="topbar-title t-mask">
+        <span class="t-topbar-text">LOLLIPOP&reg;</span>
+      </div>
+  
+      <div class="topbar-nums t-mask">
+        <div class="t-topbar-text">©-”26<br>
+          <button type="button" class="nav-num-wrapper nav-btn" data-idx="0" aria-label="Composition 01">
+            <div class="nav-num original">01</div>
+            <div class="nav-num duplicate">01</div>
+          </button>
+          <button type="button" class="nav-num-wrapper nav-btn" data-idx="1" aria-label="Composition 02">
+            <div class="nav-num original">02</div>
+            <div class="nav-num duplicate">02</div>
+          </button>
+          <button type="button" class="nav-num-wrapper nav-btn" data-idx="2" aria-label="Composition 03">
+            <div class="nav-num original">03</div>
+            <div class="nav-num duplicate">03</div>
+          </button>
+          <button type="button" class="nav-num-wrapper nav-btn" data-idx="3" aria-label="Composition 04">
+            <div class="nav-num original">04</div>
+            <div class="nav-num duplicate">04</div>
+          </button>
+          <button type="button" class="nav-num-wrapper nav-btn" data-idx="4" aria-label="Composition 05">
+            <div class="nav-num original">05</div>
+            <div class="nav-num duplicate">05</div>
+          </button>
+          <span class="topbar-tail"></span>
+        </div>
+      </div>
+    </div>
+  
+    <div class="canvas" id="canvas">
+  
+      <!--
+        Only the main text layer lives here. The mirrored one is not
+        duplicated in the markup: buildMirror() clones this and flips the
+        sides, because it is the same text.
+  
+        Empty .svg-slot elements are filled by fillArrows(), and lines
+        containing <br> are split into separate masks by initTextSplitting().
+      -->
+      <div class="text-wrapper text-wrapper--main">
+  
+        <div class="top-row">
+          <div class="visibility is--1"><div class="t-mask"><div class="t-text">quiet</div></div></div>
+          <div class="visibility is--2 is--4"><div class="t-mask"><div class="t-text">hour</div></div></div>
+          <div class="visibility is--1 svg-slot" data-arrows style="justify-self:end"></div>
+          <div class="visibility is--2 svg-slot" data-arrows style="margin-left:24.5vw"></div>
+          <div class="visibility is--2 is--4" style="justify-self:end"><div class="t-mask"><div class="t-text">quiet</div></div></div>
+          <div class="visibility is--5" style="justify-self:end"><div class="t-mask"><div class="t-text">©—✽</div></div></div>
+        </div>
+  
+        <div class="middle-row">
+          <div class="visibility is--1"><div class="t-mask"><div class="t-text">hour</div></div></div>
+          <div class="visibility is--1" style="justify-self:end"><div class="t-mask"><div class="t-text"><span class="idx-mask"><span class="index">1</span></span>—5</div></div></div>
+          <div class="visibility is--2" style="justify-self:end; text-align:end; margin-top:-4.3vw"><div class="t-mask"><div class="t-text">Fashion slows down, trends<br>get quieter, and personal style<br>speaks a little louder.</div></div></div>
+          <div class="visibility is--4" style="margin-top:-4.8vw"><div class="t-mask"><div class="t-text">The Quiet Hour is an invitation to explore<br>fashion with intention, in five looks: vintage,<br>casual, streetwear, formal and evening.</div></div></div>
+          <div class="visibility is--4 svg-slot" data-arrows style="margin-top:-3vw; justify-self:end"></div>
+          <div class="visibility is--5" style="justify-self:end; margin-top:-0.7vw"><div class="t-mask"><div class="t-text">quiet</div></div></div>
+          <div class="visibility is--5" style="position:absolute; top:3vw; right:0; justify-self:end; text-align:end"><div class="t-mask"><div class="t-text">Fashion slows down, trends<br>get quieter, and personal style<br>speaks a little louder.</div></div></div>
+        </div>
+  
+        <div class="bottom-row">
+          <div class="visibility is--1"><div class="t-mask"><div class="t-text">Lollipop girls will not be confused by<br>seasonal trends. What you wear reflects<br>an attitude towards life.</div></div></div>
+          <div class="visibility is--1" style="justify-self:end"><div class="t-mask"><div class="t-text">2026</div></div></div>
+        </div>
+  
+      </div>
+  
+    </div>
+  
+    <div class="footer">
+      <div>LOLLIPOP<br><span class="footer-gap"></span>VOL.01</div>
+    </div>
+  
+  </div>
+    <div class="gate" id="gate">
+      <canvas class="gate-fx" id="gate-fx"></canvas>
+      <div class="gate-meta l">LOLLIPOP</div>
+      <div class="gate-meta c">LOLLIPOP&reg;</div>
+      <div class="gate-meta r">©-”26</div>
+
+      <div class="gate-stage">
+        <div class="box" id="gate-box" role="button" tabindex="0" aria-label="Open the seasonal look book">
+          <div class="shadow"></div>
+          <div class="tilt">
+            <div class="face f-back"></div>
+            <div class="face f-left"><div class="big">LOOK BOOK</div></div>
+            <div class="face f-right"><div class="big">2026</div></div>
+            <div class="face f-bottom"></div>
+            <div class="card" style="background-image:url(./assets/a-cover.jpg)"><span>VOL.01</span></div>
+            <div class="face f-front">
+              <div class="row"><span>LOLLIPOP</span><span>VOL.01</span></div>
+              <div class="big">SEASONAL<br>LOOK<br>BOOK</div>
+              <div class="row"><span>THE QUIET HOUR</span><span>2026</span></div>
+            </div>
+            <div class="hinge"><div class="lid"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gate-hint">[ <i>CLICK THE BOX</i> ]</div>
+      <div class="gate-foot">VOL.01</div>
+    </div>
+
+    <script src="./gate.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>

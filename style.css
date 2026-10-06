@@ -1,0 +1,504 @@
+@font-face {
+  font-family: 'Switzer';
+  src: url('https://18dccfa619686586.cdn.express/anna/Switzer-Semibold.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --bg: #FFFDF3;
+  --ink: #0D0D0D;
+
+  --dur: 1.5s;                          /* transition duration */
+  --ease: cubic-bezier(.75, 0, 0, 1);   /* sharp start, long settle */
+  --parallax-scale: 1.1;                /* image scale inside the mask */
+  --hover: .3s;                         /* header micro-interactions */
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0 }
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-family: 'Switzer', sans-serif;
+  text-transform: uppercase;
+  font-weight: 600;
+  position: relative;
+  background: var(--bg);
+  position: relative;
+  color: var(--ink);
+  font-size: 0.9vw;
+  line-height: 100%;
+  letter-spacing: -0.02em;
+  overflow: clip;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+.page {
+  margin: 0 auto;
+  padding: 2.4vw 1.35vw 5.4vw;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* --- Header and footer --------------------------------------------------- */
+
+.topbar {
+  position: absolute;
+  inset: 5px 6px auto 6px;
+  z-index: 9999;
+  line-height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  color: var(--bg) !important;
+  mix-blend-mode: exclusion;
+}
+
+.topbar-title {
+  position: absolute;
+  top: 1px;
+  left: var(--title-x, 38vw);
+}
+.topbar-nums  { text-align: end }
+.topbar-gap   { margin-right: 1.23vw }
+.topbar-tail  { display: inline-block; margin-right: 2.3vw }
+
+.t-topbar-text { display: inline-block }
+#nav-left, #nav-right { cursor: pointer }
+
+.footer     { position: absolute; inset: auto 6px 6px auto; line-height: 70% }
+.footer-gap { margin-right: 1.6vw }
+
+/* --- Canvas -------------------------------------------------------------- */
+
+.canvas {
+  position: relative;
+  width: 100%;
+  height: 82vh;
+  margin-top: auto;
+}
+
+/* One class kills every transition for a frame, so a composition can be
+   repositioned without motion (mirror switch, resize). */
+.canvas.no-anim .item,
+.canvas.no-anim .item .img,
+.canvas.no-anim .item .img-inner,
+.canvas.no-anim .hero2,
+.canvas.no-anim .hero2 .img,
+.canvas.no-anim .hero2 .top-svg,
+.canvas.no-anim .scroll-card .img { transition: none }
+
+/* --- Items --------------------------------------------------------------- */
+
+.item {
+  position: absolute;
+  display: none;
+  flex-direction: column;
+  justify-content: flex-start;
+  transition:
+    top var(--dur) var(--ease),
+    left var(--dur) var(--ease),
+    width var(--dur) var(--ease),
+    height var(--dur) var(--ease);
+  will-change: top, left, width, height, clip-path;
+}
+.item.on { display: flex }
+
+.item .img,
+.scroll-card .img,
+.hero2 .img {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  clip-path: inset(0 0 0 0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+.item .img {
+  flex: 1;
+  min-height: 0;
+  contain: paint;
+  transition:
+    clip-path var(--dur) var(--ease),
+    height var(--dur) var(--ease),
+    flex-basis var(--dur) var(--ease);
+}
+
+.hero2 .img {
+  position: absolute;
+  inset: 0;
+  contain: paint;
+  clip-path: inset(99.9% 0 0 0);
+  transition: clip-path var(--dur) var(--ease);
+}
+
+.scroll-card .img {
+  height: 100%;
+  contain: paint;
+  will-change: clip-path;
+}
+
+.p-wrap {
+  position: absolute;
+  inset: 0;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+.img-inner,
+.sc-inner,
+.cover-ov {
+  position: absolute;
+  inset: 0;
+  background-repeat: no-repeat;
+  transform: scale(var(--parallax-scale));
+  transform-origin: center;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+.img-inner,
+.sc-inner {
+  background-size: cover;
+  background-position: center;
+  transition:
+    transform var(--dur) var(--ease),
+    background-position var(--dur) var(--ease);
+}
+
+.cover-ov { z-index: 2; will-change: clip-path }
+
+.cover-ov-inner {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.top-svg {
+  width: calc(100% + 3px);
+  min-width: calc(100% + 3px);
+  height: auto;
+  position: absolute;
+  inset: -0.5px auto auto -0.5px;
+  z-index: 9999;
+  clip-path: inset(0 0 99.9% 0);
+  transition:
+    clip-path var(--dur) var(--ease),
+    top var(--dur) var(--ease),
+    transform var(--dur) var(--ease);
+}
+
+.item.large .top-svg { clip-path: inset(0 0 0 0) !important }
+
+.hero2 .top-svg {
+  clip-path: none !important;
+  transition: transform var(--dur) var(--ease);
+}
+
+.hero2 {
+  position: absolute;
+  z-index: 4;
+  display: none;
+  overflow: hidden;
+  transition:
+    top var(--dur) var(--ease),
+    left var(--dur) var(--ease),
+    width var(--dur) var(--ease),
+    height var(--dur) var(--ease);
+}
+.hero2.on { display: block }
+
+/* --- Scroll columns ------------------------------------------------------ */
+
+.scroll-col {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  overflow: visible;
+  display: none;
+  z-index: 3;
+  will-change: transform;
+}
+.scroll-col.on { display: block }
+
+.scroll-card { position: absolute; left: 0; width: 100% }
+
+/* --- Text masks ---------------------------------------------------------- */
+
+.t-mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.t-text {
+  display: inline-block;
+  transform: translateY(120%);
+  pointer-events: none;
+  will-change: transform;
+  --capDir: 1;
+}
+.t-text.is-active { pointer-events: auto }
+
+@keyframes textEnter {
+  from { transform: translateY(calc(-120% * var(--capDir))) }
+  to   { transform: translateY(0%) }
+}
+@keyframes textExit {
+  from { transform: translateY(0%) }
+  to   { transform: translateY(calc(120% * var(--capDir))) }
+}
+
+.idx-mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  width: 0.6em;
+  text-align: right;
+}
+.index { display: inline-block; transform: translateY(0%) }
+
+/* --- Captions ------------------------------------------------------------ */
+
+.item .cap,
+.scroll-card .cap {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0;
+  bottom: -3vw !important;
+  padding-top: 1.2vw;
+  opacity: 1 !important;
+  transition: none !important;
+}
+
+.scroll-card .cap { position: absolute; left: 0; right: 0 }
+
+.cap .t-text      { transform: translateY(var(--capY, 120%)) }
+.cap.show .t-text { --capY: 0%; animation: textEnter var(--dur) var(--ease) both; pointer-events: auto }
+.cap.hide .t-text { --capY: var(--capOut, 120%); animation: textExit var(--dur) var(--ease) both }
+.cap.dir-up .t-text { --capDir: -1; --capOut: -120% }
+
+/* the caption swap on photo change is shorter than a normal entry */
+.item .cap.cover-swap .t-text { animation-duration: 700ms }
+
+.item .cap .t-col,
+.scroll-card .cap .t-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.item .cap .t-col.r,
+.scroll-card .cap .t-col.r { align-items: flex-end; text-align: right }
+
+.item .cap .t-mask,
+.scroll-card .cap .t-mask {
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+
+/* --- Text layers --------------------------------------------------------- */
+
+.text-wrapper {
+  position: absolute;
+  width: 56vw;
+  height: 40vh;
+  display: flex;
+  flex-direction: column;
+  z-index: 999;
+  top: 1.5vw;
+  transition: top var(--dur) var(--ease);
+  pointer-events: none;
+}
+
+.text-wrapper--main   { right: 0 }
+.text-wrapper--mirror { left: 0 }
+
+#canvas[data-pair="1"] .text-wrapper { top: 0 }
+
+.top-row, .middle-row, .bottom-row {
+  display: grid !important;
+  grid-template-areas: "stack";
+  width: 100%;
+}
+
+.middle-row { margin-top: 8.8vw; position: relative }
+.bottom-row { margin-top: auto }
+
+.text-wrapper--main   .bottom-row { padding-left: 9.55vw }
+.text-wrapper--mirror .bottom-row { padding-right: 9.55vw }
+
+/* Every block in a row shares one grid cell. The visible ones are those
+   whose is--N class matches the current composition. */
+.visibility {
+  grid-area: stack;
+  display: block !important;
+  pointer-events: none;
+}
+
+.svg-arrow { width: 0.9vw }
+
+.svg-arrows {
+  width: 3vw;
+  display: flex;
+  justify-content: space-between;
+  pointer-events: auto;
+}
+
+.svg-slot { transition: margin 0s, transform 0s }
+
+/* --- Micro-interactions ----------- */
+
+.nav-btn {
+  appearance: none;
+  -webkit-appearance: none;
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  line-height: inherit;
+  cursor: pointer;
+}
+
+.nav-btn:focus { outline: none }
+.nav-btn:focus-visible {
+  outline: 1px solid currentColor;
+  outline-offset: 2px;
+}
+
+.nav-num-wrapper,
+.svg-arrow-wrapper {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.nav-num-wrapper   { margin-top: -0.23vw; vertical-align: top }
+.svg-arrow-wrapper { vertical-align: middle }
+
+.nav-num  { display: inline-block }
+.svg-arrow { display: inline-flex; align-items: center; justify-content: center }
+
+.nav-num.duplicate,
+.svg-arrow.duplicate { position: absolute; top: 0; left: 0 }
+
+.nav-num.duplicate,
+.is--prev .svg-arrow.duplicate { transform: translateX(105%) }
+.is--next .svg-arrow.duplicate { transform: translateX(-105%) }
+
+@keyframes outLeft  { from { transform: translateX(0) }       to { transform: translateX(-105%) } }
+@keyframes outRight { from { transform: translateX(0) }       to { transform: translateX(105%) } }
+@keyframes inRight  { from { transform: translateX(105%) }    to { transform: translateX(0) } }
+@keyframes inLeft   { from { transform: translateX(-105%) }   to { transform: translateX(0) } }
+
+.nav-num-wrapper:hover .original,
+.svg-arrow-wrapper.is--prev:hover .original,
+.nav-num-wrapper:not(:hover) .duplicate,
+.svg-arrow-wrapper.is--prev:not(:hover) .duplicate {
+  animation: outLeft var(--hover) forwards ease-in-out;
+}
+
+.nav-num-wrapper:hover .duplicate,
+.svg-arrow-wrapper.is--prev:hover .duplicate,
+.nav-num-wrapper:not(:hover) .original,
+.svg-arrow-wrapper.is--prev:not(:hover) .original {
+  animation: inRight var(--hover) forwards ease-in-out;
+}
+
+.svg-arrow-wrapper.is--next:hover .original,
+.svg-arrow-wrapper.is--next:not(:hover) .duplicate {
+  animation: outRight var(--hover) forwards ease-in-out;
+}
+
+.svg-arrow-wrapper.is--next:hover .duplicate,
+.svg-arrow-wrapper.is--next:not(:hover) .original {
+  animation: inLeft var(--hover) forwards ease-in-out;
+}
+
+/* --- Shader layer -------------------------------------------------------- */
+
+.beast-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 700ms var(--ease);
+}
+.beast-canvas.show { opacity: 1 }
+
+/* with the shader on, the normal images hide — it draws them itself */
+body.beast-on .item .img,
+body.beast-on .scroll-card .img,
+body.beast-on .hero2 .img { opacity: 0 !important }
+
+
+/* ===== Landing gate: the box you have to open ===== */
+.gate{position:fixed;inset:0;z-index:10000;background:var(--bg);clip-path:inset(0 0 0 0);
+  transition:clip-path var(--dur) var(--ease);overflow:hidden;cursor:pointer;
+  font-size:clamp(11px,.9vw,16px);user-select:none}
+.gate.leaving{clip-path:inset(0 0 100% 0);pointer-events:none}
+.gate-fx{position:absolute;inset:0;width:100%;height:100%}
+.gate-meta{position:absolute;top:5px;line-height:100%;pointer-events:none}
+.gate-meta.l{left:6px}.gate-meta.c{left:var(--title-x,38vw)}.gate-meta.r{right:6px;text-align:end}
+.gate-foot{position:absolute;right:6px;bottom:6px;line-height:100%;pointer-events:none}
+.gate-hint{position:absolute;left:0;right:0;bottom:6px;text-align:center;pointer-events:none;
+  transition:opacity .4s}
+.gate-hint i{font-style:normal;animation:gblink 1.2s steps(2) infinite}
+.gate.open .gate-hint{opacity:0}
+@keyframes gblink{50%{opacity:0}}
+
+.gate-stage{position:absolute;inset:0;display:grid;place-items:center;perspective:1500px}
+.box{--s:clamp(180px,19vw,340px);--h:calc(var(--s)*.8);position:relative;width:var(--s);height:var(--h);
+  margin-top:8vh;outline:none;-webkit-tap-highlight-color:transparent}
+.box:focus-visible{outline:1px solid var(--ink);outline-offset:24px}
+.tilt{position:absolute;inset:0;transform-style:preserve-3d;will-change:transform}
+
+.face{position:absolute;background:#0D0D0D;color:var(--bg);border:1px solid rgba(255,253,243,.16);
+  display:flex;flex-direction:column;justify-content:space-between;padding:6%;line-height:100%}
+.f-front{inset:0;transform:translateZ(calc(var(--s)/2));background:#0D0D0D}
+.f-back{inset:0;transform:rotateY(180deg) translateZ(calc(var(--s)/2));background:#151515}
+.f-right{inset:0;transform:rotateY(90deg) translateZ(calc(var(--s)/2));background:#191919}
+.f-left{inset:0;transform:rotateY(-90deg) translateZ(calc(var(--s)/2));background:#111}
+.f-bottom{left:0;width:var(--s);height:var(--s);top:calc((var(--h) - var(--s))/2);
+  transform:rotateX(-90deg) translateZ(calc(var(--h)/2));background:#080808}
+.f-front .big{font-size:2.6em;letter-spacing:-.04em;line-height:90%}
+.f-front .row{display:flex;justify-content:space-between}
+.f-right .big,.f-left .big{font-size:1.2em;writing-mode:vertical-rl;margin:auto}
+
+.hinge{position:absolute;left:0;top:0;width:var(--s);height:0;transform-style:preserve-3d;
+  transform:translateZ(calc(var(--s)/-2)) rotateX(0deg);transition:transform 1.1s var(--ease)}
+.box:hover .hinge{transform:translateZ(calc(var(--s)/-2)) rotateX(14deg);transition-duration:.5s}
+.gate.open .hinge{transform:translateZ(calc(var(--s)/-2)) rotateX(118deg)!important;transition-duration:1.1s}
+.lid{position:absolute;left:0;top:0;width:var(--s);height:var(--s);transform-origin:50% 0;
+  transform:rotateX(90deg);background:#202020;border:1px solid rgba(255,253,243,.2)}
+.lid::after{content:"";position:absolute;left:0;right:0;top:44%;height:12%;background:var(--bg);opacity:.9}
+
+.card{position:absolute;left:20%;width:60%;top:calc(var(--s)*.05);height:calc(var(--s)*.72);
+  background:#ddd center/cover no-repeat;transform:translateZ(0);
+  transition:transform 1.3s var(--ease) .25s;box-shadow:0 0 0 1px rgba(13,13,13,.4)}
+.card span{position:absolute;left:6%;top:5%;color:var(--bg);mix-blend-mode:exclusion}
+.gate.open .card{transform:translateY(calc(var(--s)*-.7)) scale(1.12)}
+.shadow{position:absolute;left:-10%;right:-10%;bottom:-18%;height:12%;background:radial-gradient(closest-side,rgba(13,13,13,.28),transparent);
+  filter:blur(6px);transform:translateZ(-1px)}
+
+@media (prefers-reduced-motion:reduce){.hinge,.card,.gate{transition-duration:.01s!important}}
