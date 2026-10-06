@@ -3,7 +3,6 @@
   <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="./style.css">
-    <link rel="stylesheet" href="./gate.css">
     <link rel="icon" href="./assets/favicon.png" type="image/png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lollipop — The Quiet Hour</title>
@@ -123,7 +122,26 @@
       <div class="gate-foot">VOL.01</div>
     </div>
 
-    <script src="./gate.js"></script>
+    <!--
+      IMAGE LIST: edit photos and captions here.
+      Keep the ids (A–K) in this order and count: the layouts in script.js
+      refer to cards by these letters. Files live in ./assets/.
+    -->
+    <div id="looks" hidden>
+      <div data-id="A" data-client="THE QUIET HOUR" data-type="COVER"      data-img="./assets/a-cover.jpg"></div>
+      <div data-id="B" data-client="NO. 01"         data-type="VINTAGE"    data-img="./assets/b-vintage.jpg"></div>
+      <div data-id="C" data-client="NO. 02"         data-type="CASUAL"     data-img="./assets/c-casual.jpg"></div>
+      <div data-id="D" data-client="NO. 03"         data-type="STREETWEAR" data-img="./assets/d-streetwear.jpg"></div>
+      <div data-id="E" data-client="NO. 04"         data-type="FORMAL"     data-img="./assets/e-formal.jpg"></div>
+      <div data-id="F" data-client="NO. 05"         data-type="EVENING"    data-img="./assets/f-evening.jpg"></div>
+      <div data-id="G" data-client="NO. 06"         data-type="EDITORIAL"  data-img="./assets/g-editorial.jpg"></div>
+      <div data-id="H" data-client="NO. 07"         data-type="VINTAGE"    data-img="./assets/h-vintage.jpg"></div>
+      <div data-id="I" data-client="NO. 08"         data-type="CASUAL"     data-img="./assets/i-casual.jpg"></div>
+      <div data-id="K" data-client="NO. 09"         data-type="CASUAL"     data-img="./assets/k-casual.jpg"></div>
+    </div>
+    <!-- image used for the large stand-in slide in composition 2 -->
+    <div id="hero-src" hidden data-img="./assets/b-vintage.jpg"></div>
+
     <script src="./script.js"></script>
   </body>
 </html>
