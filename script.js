@@ -310,10 +310,10 @@ document.body.focus();
 
 
 const ITEMS = [
-  { id: 'A', client: 'THE QUIET HOUR', type: 'COVER', bg: `url(./assets/a-cover.jpg)` },
-  { id: 'B', client: 'NO. 01', type: 'VINTAGE', bg: `url(./assets/b-vintage.jpg)` },
-  { id: 'C', client: 'NO. 02', type: 'CASUAL', bg: `url(./assets/c-casual.jpg)` },
-  { id: 'D', client: 'NO. 03', type: 'STREETWEAR', bg: `url(./assets/d-streetwear.jpg)` },
+  { id: 'A', client: 'THE QUIET HOUR', type: 'COVER', bg: `url(./assets/HERO.jpg)` },
+  { id: 'B', client: 'NO. 01', type: 'VINTAGE', bg: `url(./assets/editorial.jpg)` },
+  { id: 'C', client: 'NO. 02', type: 'CASUAL', bg: `url(./assets/Formal.jpg)` },
+  { id: 'D', client: 'NO. 03', type: 'STREETWEAR', bg: `url(./assets/face-card.jpg)` },
   { id: 'E', client: 'NO. 04', type: 'FORMAL', bg: `url(./assets/e-formal.jpg)` },
   { id: 'F', client: 'NO. 05', type: 'EVENING', bg: `url(./assets/f-evening.jpg)` },
   { id: 'G', client: 'NO. 06', type: 'EDITORIAL', bg: `url(./assets/g-editorial.jpg)` },
